@@ -63,6 +63,8 @@ export const Home = () => {
         axios.post('http://localhost:8000/loadpdf', formData)
             .then(response => {
                 console.log(response.data);
+                setText1(response.data.chatgptresponse)
+                setText2(response.data.ollamaresponse)
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -73,11 +75,12 @@ export const Home = () => {
     const handleQuestions1 = (text) => {
         setQueArr1((prev) => [...prev, text])
         // model = "openAPI"
-        const url = `http://0.0.0.0:8000/getsummary1/${text}`;
+        const url = `http://0.0.0.0:8000/getchatresponse/${text}`;
 
         axios.get(url)
             .then(response => {
-                setAnsArr1((prev) => [...prev, response.data.chatgptresponse])
+                console.log(response.data)
+                setAnsArr1((prev) => [...prev, response.data.chatgptResponse])
                 scrollToBottom(); // Scroll to bottom after adding question
 
                 
@@ -93,13 +96,13 @@ export const Home = () => {
     const handleQuestions2 = (text) => {
         setQueArr2((prev) => [...prev, text])
         // model = "ollama"
-        const url = `http://0.0.0.0:8000/getsummary2/${text}`;
+        const url = `http://0.0.0.0:8000/getllmresponse/${text}`;
 
         axios.get(url)
             .then(response => {
                 console.log('Response:', response.data);
                 setAnsArr2((prev) => [...prev, response.data.ollamaresponse])
-
+                scrollToBottom(); // Scroll to bottom after adding question
             })
             .catch(error => {
                 console.error('Error:', error);

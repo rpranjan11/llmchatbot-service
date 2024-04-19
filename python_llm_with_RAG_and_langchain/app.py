@@ -8,12 +8,12 @@ from starlette.requests import Request
 from starlette.routing import Route
 from starlette.middleware.cors import CORSMiddleware
 from OpenAPI.customchatgptapi import get_chatgpt_response_with_file, get_chatgpt_response
-# from OllamLLM.ollamaapi import get_ollamallm_response
+from OllamaLLM.ollamaapi import get_ollamallm_response
 
 app = Starlette()
 
 app.add_middleware(
-    CORSMiddleware, allow_origins=["*"], allow_headers=["*"], allow_methods=["*"]
+    CORSMiddleware, allow_origins=["http://localhost:3000"], allow_headers=["*"], allow_methods=["*"]
 )
 
 async def save_pdf(request: Request):
@@ -38,24 +38,38 @@ async def save_pdf(request: Request):
 
     return JSONResponse({"message": "PDF file uploaded successfully", "chatgptresponse": chatgptresponse, "ollamaresponse": chatgptresponse}, status_code=200)
 
-async def get_chat_response(self, request, prompt : str = None, model : str = None):
+def get_chat_response(request, prompt : str = None):
 
     prompt = request.path_params['prompt']
-    model = request.path_params['model']
+    # model = request.query_params['model']
 
-    print('Prompt : ', prompt)
-    if model == 'openapi':
-        chatgptResponse = get_chatgpt_response(prompt)
+    # print('prompt : ', prompt)
+    # if model == 'openapi':
+    chatgptResponse = get_chatgpt_response(prompt)
     # elif model == 'ollamallm':
     #     ollamaresponse = get_ollamallm_response(prompt)
 
-    return JSONResponse({"message": chatgptResponse}, status_code=200)
+    return JSONResponse({"chatgptResponse": chatgptResponse}, status_code=200)
+
+def get_ollama_response(request, prompt : str = None):
+
+    prompt = request.path_params['prompt']
+    # model = request.query_params['model']
+
+    # print('prompt : ', prompt)
+    # if model == 'openapi':
+    # chatgptResponse = get_chatgpt_response(prompt)
+    # elif model == 'ollamallm':
+    ollamaresponse = get_ollamallm_response(prompt)
+
+    return JSONResponse({"ollamaresponse": ollamaresponse}, status_code=200)
 
 
 # Define the route for receiving PDF files
 routes = [
     Route("/loadpdf", endpoint=save_pdf, methods=["POST"]),
-    Route("/getchatresponse", endpoint=get_chat_response, methods=["GET"]),
+    Route("/getchatresponse/{prompt}", endpoint=get_chat_response, methods=["GET"]),
+    Route("/getllmresponse/{prompt}", endpoint=get_ollama_response, methods=["GET"]),
 ]
 
 # Add the routes to the Starlette app

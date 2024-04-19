@@ -1,7 +1,7 @@
 from openai import OpenAI
 
 client = OpenAI(
-    api_key = ""
+    api_key = "" # "api_key need to be submitted here"
 )
 
 model = "gpt-3.5-turbo"

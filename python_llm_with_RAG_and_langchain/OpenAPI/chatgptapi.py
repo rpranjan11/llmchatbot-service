@@ -1,7 +1,7 @@
 from openai import OpenAI
 
 client = OpenAI(
-    api_key = "sk-proj-EmZLMbXohAiE3e3uR9vaT3BlbkFJDGwhdqzw5SmxDMGgHOQM"
+    api_key = ""
 )
 
 model = "gpt-3.5-turbo"

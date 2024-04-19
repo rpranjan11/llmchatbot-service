@@ -1,9 +1,9 @@
 from openai import OpenAI
 import time
 
-ASSISTANT_ID = "asst_iOpzcahzHmqay2iM6jad246W" # ASSISTANT_ID needs to be submitted here
+ASSISTANT_ID = "" # ASSISTANT_ID needs to be submitted here
 client = OpenAI(
-    api_key = "sk-proj-EmZLMbXohAiE3e3uR9vaT3BlbkFJDGwhdqzw5SmxDMGgHOQM" # "api_key need to be submitted here"
+    api_key = "" # "api_key need to be submitted here"
 )
 
 def get_chatgpt_response_with_file(file):

@@ -63,7 +63,9 @@ const Footer = () => {
 
           <div className="services ">
             <span id="heading" className="">
-              <button >Project Link</button>
+              <a href="https://github.com/rpranjan11/tampere_llm_assignment">
+                <button>GitHub Project Link</button>
+              </a>
             </span>
           </div>
 

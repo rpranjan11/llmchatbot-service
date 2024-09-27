@@ -1,0 +1,171 @@
+.header #heading{
+  font-size: 2rem;
+  color: #1a73e8;
+  text-decoration: none;
+  /* margin-left: 16px !important; */
+  font-weight: 700;
+}
+
+
+
+
+
+
+
+
+
+
+.border-shadow {
+  box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+  border: 1px solid transparent;
+}
+
+
+
+
+
+/* .header {
+  position: fixed;
+  background: #fff;
+  z-index: 9;
+  width: 100%;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 664px)  {
+  /* small devices */
+  .App,
+  .responsive-width {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+
+  .responsive-md {
+    display: none !important;
+  }
+
+}
+
+@media screen and (min-width: 664px) and (max-width: 768px) {
+  /* //For Tablets */
+  .App,
+  .responsive-width {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+
+  .responsive-md {
+    display: flex !important;
+  }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  /* //For Laptops */
+  .App,
+  .responsive-width {
+    /* width: 738px; */
+    /* width: 850px; */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  .responsive-md {
+    display: flex !important;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1280px) {
+  /* //For Large Laptops */
+  .App,
+  .responsive-width {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+
+  .responsive-md {
+    display: flex !important;
+  }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1920px) {
+  /* //For Big TV's (HD Screens)  */
+  .App,
+  .responsive-width {
+    width: 1250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+
+  .responsive-md {
+    display: flex !important;
+  }
+}
+
+@media screen and (min-width: 1920px) and (max-width: 3840px) {
+  /* //For Projectors or Higher Resolution Screens (Full HD) */
+  .App,
+  .responsive-width {
+    width: 1250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  .responsive-md {
+    display: flex !important;
+  }
+}
+
+@media screen and (min-width: 3840px) {
+  /* //For 4K Displays (Ultra HD) */
+  .App,
+  .responsive-width {
+    width: 3810px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  .responsive-md {
+    display: flex !important;
+  }
+}

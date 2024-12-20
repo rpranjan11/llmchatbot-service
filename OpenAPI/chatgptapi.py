@@ -1,7 +1,12 @@
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 client = OpenAI(
-    api_key = "sk-proj-oxpnb3tt8tyv1UePIiw0T3BlbkFJVlcvRjrKh6JcGyxK1Edx" # "api_key need to be submitted here"
+    api_key=os.getenv('OPENAPI_API_KEY')
 )
 
 model = "gpt-3.5-turbo"

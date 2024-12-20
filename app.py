@@ -1,5 +1,7 @@
 import uvicorn
 import os
+from dotenv import load_dotenv
+import os
 
 from starlette.applications import Starlette
 from starlette.endpoints import HTTPEndpoint
@@ -12,10 +14,13 @@ from OpenAPI.customchatgptapi import get_chatgpt_response_with_file, get_chatgpt
 from OllamaLLM.ollamaapi import get_ollamallm_response
 from OllamaLLM.customollamaapi import get_ollamallm_response_with_file
 
+# Load environment variables from .env file
+load_dotenv()
+
 app = Starlette()
 
 app.add_middleware(
-    CORSMiddleware, allow_origins=["http://localhost:3000"], allow_headers=["*"], allow_methods=["*"]
+    CORSMiddleware, allow_origins=[os.getenv('MIDDLEWARE_ALLOW_ORIGIN_URL')], allow_headers=["*"], allow_methods=["*"]
 )
 
 async def save_pdf(request: Request):
@@ -76,3 +81,6 @@ routes = [
 
 # Add the routes to the Starlette app
 app.routes.extend(routes)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))

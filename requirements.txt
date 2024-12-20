@@ -1,15 +1,17 @@
--e git+https://github.com/encode/starlette@master#egg=starlette # bcz current startlette version doesn't have the CORS middleware
+# Current startlette version doesn't have the CORS middleware so adding the below specific version
+# -e git+https://github.com/encode/starlette@master#egg=starlette
+startlette
 uvicorn
 ollama
 openai
 pypdf
 langchain
-chromadb # for vector storage
+chromadb # This is for vector storage
+ python-dotenv
 pytest
-
 pymupdf
 huggingface-hub
 faiss-cpu
 sentence-transformers
-
+torch
 # ollama run llama2

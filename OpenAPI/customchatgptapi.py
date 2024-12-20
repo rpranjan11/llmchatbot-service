@@ -1,9 +1,14 @@
 from openai import OpenAI
 import time
+from dotenv import load_dotenv
+import os
 
-ASSISTANT_ID = "asst_iOpzcahzHmqay2iM6jad246W" # ASSISTANT_ID needs to be submitted here
+# Load environment variables from .env file
+load_dotenv()
+
+ASSISTANT_ID = os.getenv('OPENAPI_ASSISTANT_ID')
 client = OpenAI(
-    api_key = "sk-proj-oxpnb3tt8tyv1UePIiw0T3BlbkFJVlcvRjrKh6JcGyxK1Edx" # "api_key need to be submitted here"
+    api_key=os.getenv('OPENAPI_API_KEY')
 )
 
 def get_chatgpt_response_with_file(file):

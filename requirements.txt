@@ -1,6 +1,5 @@
 # Current startlette version doesn't have the CORS middleware so adding the below specific version
-# -e git+https://github.com/encode/starlette@master#egg=starlette
-startlette
+-e git+https://github.com/encode/starlette@master#egg=starlette
 uvicorn
 ollama
 openai

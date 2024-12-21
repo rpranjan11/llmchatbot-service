@@ -17,11 +17,17 @@ from OllamaLLM.customollamaapi import get_ollamallm_response_with_file
 # Load environment variables from .env file
 load_dotenv()
 
-app = Starlette()
+# app = Starlette()
+#
+# app.add_middleware(
+#     CORSMiddleware, allow_origins=[os.getenv('MIDDLEWARE_ALLOW_ORIGIN_URL')], allow_headers=["*"], allow_methods=["*"]
+# )
 
-app.add_middleware(
-    CORSMiddleware, allow_origins=[os.getenv('MIDDLEWARE_ALLOW_ORIGIN_URL')], allow_headers=["*"], allow_methods=["*"]
-)
+middleware = [
+    Middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]),
+]
+
+app = Starlette(routes=routes, middleware=middleware)
 
 async def save_pdf(request: Request):
 
@@ -83,4 +89,4 @@ routes = [
 app.routes.extend(routes)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+    uvicorn.run(app, host="0.0.0.0", port=8000)

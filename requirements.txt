@@ -8,7 +8,7 @@ pypdf==4.2.0
 langchain==0.1.16
 chromadb==0.4.24 # for vector storage
 pytest==8.1.1
-
+python_multipart>=0.0.9
 pymupdf
 huggingface-hub==0.22.2
 faiss-cpu==1.8.0

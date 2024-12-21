@@ -23,12 +23,6 @@ load_dotenv()
 #     CORSMiddleware, allow_origins=[os.getenv('MIDDLEWARE_ALLOW_ORIGIN_URL')], allow_headers=["*"], allow_methods=["*"]
 # )
 
-middleware = [
-    Middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]),
-]
-
-app = Starlette(routes=routes, middleware=middleware)
-
 async def save_pdf(request: Request):
 
     # Retrieve the uploaded PDF file
@@ -85,8 +79,14 @@ routes = [
     Route("/getllmresponse/{prompt}", endpoint=get_ollama_response, methods=["GET"]),
 ]
 
+middleware = [
+    Middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]),
+]
+
+app = Starlette(routes=routes, middleware=middleware)
+
 # Add the routes to the Starlette app
-app.routes.extend(routes)
+# app.routes.extend(routes)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

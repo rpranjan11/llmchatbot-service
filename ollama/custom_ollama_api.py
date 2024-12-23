@@ -1,4 +1,3 @@
-import os
 from custom_ollama_function import *
 from langchain_community.llms.ollama import Ollama
 from langchain.chains.summarize import load_summarize_chain
@@ -24,7 +23,7 @@ vectorstore = None  # Initialize vectorstore as None
 prompt = None  # Initialize prompt as None
 model = None  # Initialize model as None
 
-def get_ollamallm_response_with_file(model, file, prompt):
+def get_ollama_response_from_file(model, file, prompt):
     global chain, vectorstore  # Declare chain and vectorstore as global to modify the global variables
 
     # Loading the Ollama Model
@@ -43,8 +42,6 @@ def get_ollamallm_response_with_file(model, file, prompt):
     # converting vectorstore to a retriever
     retriever = vectorstore.as_retriever()
 
-    # Creating the chain
-    # chain = load_qa_chain(retriever, llm, prompt)
     if prompt is None:
         prompt = "Write a summary within 1000 words"
         chain = load_summarize_chain(llm, chain_type="stuff")  # specific for summary generation
@@ -59,20 +56,20 @@ def get_ollamallm_response_with_file(model, file, prompt):
 
 
 
-file = "./PDFfiles/Ranjan.pdf"
-if not os.path.isfile(file):
-    raise ValueError(f"File path {file} is not a valid file or url")
-
-# Loading orca-mini from Ollama
-model = "orca-mini"
-summary = get_ollamallm_response_with_file(model, file, prompt)
-print('Summary : ', summary)
-print('-----------------')
-
-# Loading llama3.2 from Ollama
-model = "llama3.2"
-print('Response : ', get_ollamallm_response_with_file(model, file, "Who is Ranjan"))
-print('-----------------')
-print('Response : ', get_ollamallm_response_with_file(model, file, "In which year did Ram Pratap Ranjan graduated"))
-print('-----------------')
-print('Response : ', get_ollamallm_response_with_file(model, file, "Who is APJ Abdul kalam"))
+# file = "./pdf_files/Ranjan.pdf"
+# if not os.path.isfile(file):
+#     raise ValueError(f"File path {file} is not a valid file or url")
+#
+# # Loading orca-mini from Ollama
+# model = "orca-mini"
+# summary = get_ollama_response_from_file(model, file, prompt)
+# print('Summary : ', summary)
+# print('-----------------')
+#
+# # Loading llama3.2 from Ollama
+# model = "llama3.2"
+# print('Response : ', get_ollama_response_from_file(model, file, "Who is Ranjan"))
+# print('-----------------')
+# print('Response : ', get_ollama_response_from_file(model, file, "In which year did Ram Pratap Ranjan graduated"))
+# print('-----------------')
+# print('Response : ', get_ollama_response_from_file(model, file, "Who is APJ Abdul kalam"))

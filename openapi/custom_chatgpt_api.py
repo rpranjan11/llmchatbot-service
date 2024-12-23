@@ -11,7 +11,7 @@ client = OpenAI(
     api_key=os.getenv('OPENAPI_API_KEY')
 )
 
-def get_chatgpt_response_with_file(file):
+def get_chatgpt_response_from_file(file):
     
     # Create a vector store called "Supporting Data Files"
     vector_store = client.beta.vector_stores.create(name="Supporting Data Files")
@@ -68,7 +68,7 @@ def get_chatgpt_response_with_file(file):
     return latest_message
 
 
-def get_chatgpt_response(prompt):
+def get_chatgpt_custom_response(prompt):
 
     # Create a thread with a message.
     thread = client.beta.threads.create(
@@ -101,14 +101,13 @@ def get_chatgpt_response(prompt):
 
 
 
-
-file = "./PDFfiles/Ranjan.pdf"
-prompt = "Who is Ranjan"
-response = get_chatgpt_response(prompt)
-print(response)
-print('----------------------------------')
-response = get_chatgpt_response_with_file(file)
-print(response)
-print('----------------------------------')
-response = get_chatgpt_response(prompt)
-print(response)
+# file = "./pdf_files/Ranjan.pdf"
+# prompt = "Who is Ranjan"
+# response = get_chatgpt_custom_response(prompt)
+# print(response)
+# print('----------------------------------')
+# response = get_chatgpt_response_from_file(file)
+# print(response)
+# print('----------------------------------')
+# response = get_chatgpt_custom_response(prompt)
+# print(response)

@@ -11,7 +11,7 @@ client = OpenAI(
 
 model = "gpt-3.5-turbo"
 
-def get_chatgpt_summary(prompt):
+def get_chatgpt_generic_response(prompt):
 
     response = client.chat.completions.create(
         messages=[
@@ -23,10 +23,10 @@ def get_chatgpt_summary(prompt):
         model=model
     )
 
-    print('Chatgpt Api Response : ', response.choices[0].message.content)
     return response.choices[0].message.content
 
 
 
 # prompt = "Who is Ram Pratap Ranjan"
 # response = get_chatgpt_summary(prompt)
+# print('Chatgpt Api Response : ', response)

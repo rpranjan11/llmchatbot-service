@@ -2,7 +2,7 @@ import ollama
 
 model = None # Initialize model as None
 
-def get_ollama_response(model, prompt):
+def get_ollama_generic_response(model, prompt):
 
     response = ollama.chat(
         messages=[
@@ -14,11 +14,10 @@ def get_ollama_response(model, prompt):
         model=model
     )
 
-    print('Ollama Api Response : ', response['message']['content'])
     return response['message']['content']
 
 
-model = "llama3.2"
-prompt = "Who is APJ Abdul Kalam"
-response = get_ollama_response(model, prompt)
-
+# model = "llama3.2"
+# prompt = "Who is APJ Abdul Kalam"
+# response = get_ollama_response(model, prompt)
+# print('Ollama Api Response : ', response)

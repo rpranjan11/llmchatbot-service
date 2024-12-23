@@ -28,5 +28,5 @@ def get_chatgpt_summary(prompt):
 
 
 
-prompt = "Who is Ram Pratap Ranjan"
-response = get_chatgpt_summary(prompt)
+# prompt = "Who is Ram Pratap Ranjan"
+# response = get_chatgpt_summary(prompt)

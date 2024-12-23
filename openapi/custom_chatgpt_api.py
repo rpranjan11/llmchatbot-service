@@ -101,13 +101,14 @@ def get_chatgpt_response(prompt):
 
 
 
-# file = "./PDFfiles/Ranjan.pdf"
-# prompt = "Who is Ram Pratap Ranjan"
-# response = get_chatgpt_response(prompt)
-# print(response)
-# print('----------------------------------')
-# response = get_chatgpt_response_with_file(file)
-# print(response)
-# print('----------------------------------')
-# response = get_chatgpt_response(prompt)
-# print(response)
+
+file = "./PDFfiles/Ranjan.pdf"
+prompt = "Who is Ranjan"
+response = get_chatgpt_response(prompt)
+print(response)
+print('----------------------------------')
+response = get_chatgpt_response_with_file(file)
+print(response)
+print('----------------------------------')
+response = get_chatgpt_response(prompt)
+print(response)

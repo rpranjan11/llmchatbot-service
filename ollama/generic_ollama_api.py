@@ -1,7 +1,5 @@
 import ollama
 
-model = None # Initialize model as None
-
 def get_ollama_generic_response(model, prompt):
 
     response = ollama.chat(

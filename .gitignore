@@ -19,12 +19,14 @@ lib64/
 parts/
 sdist/
 var/
+src/
 wheels/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
+.idea
 vectorstore/
 ollama/vectorstore/
 

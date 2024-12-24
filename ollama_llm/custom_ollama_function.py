@@ -4,7 +4,6 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.retrieval_qa.base import RetrievalQA
 from langchain_community.vectorstores import FAISS
 
-
 # This will load the PDF file
 def load_pdf_data(file_path):
     # Creating a PyMuPDFLoader object with file_path
@@ -42,7 +41,6 @@ def load_embedding_model(model_path, normalize_embedding=True):
         }
     )
 
-
 # Function for creating embeddings using FAISS
 def create_embeddings(chunks, embedding_model, storing_path="vectorstore"):
     # Creating the embeddings using FAISS
@@ -55,7 +53,7 @@ def create_embeddings(chunks, embedding_model, storing_path="vectorstore"):
     return vectorstore
 
 # Creating the chain for Question Answering
-def load_qa_chain(retriever, llm, prompt):
+def load_qa_chain(retriever, llm):
     return RetrievalQA.from_chain_type(
         llm=llm,
         retriever=retriever, # here using the vectorstore as a retriever

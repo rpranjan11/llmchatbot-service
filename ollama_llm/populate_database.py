@@ -9,7 +9,7 @@ from get_embedding_function import get_embedding_function
 
 
 CHROMA_PATH = "chroma"
-DATA_PATH = "../PDFfiles"
+DATA_PATH = "../pdf_files"
 
 
 def main():

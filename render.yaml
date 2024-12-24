@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: starlette-app
+    env: python
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      python -c "from langchain_community.llms.ollama import Ollama; Ollama(model='orca-mini', temperature=0); Ollama(model='llama3.2', temperature=0)"
+    startCommand: "python app.py"
+    envVars:
+      - key: OPENAPI_API_KEY
+        fromDatabase: true
+      - key: OPENAPI_ASSISTANT_ID
+        fromDatabase: true
+      - key: MIDDLEWARE_ALLOW_ORIGIN_URL
+        fromDatabase: true

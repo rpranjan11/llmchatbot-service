@@ -1,12 +1,17 @@
 from openai import OpenAI
 import time
+from dotenv import load_dotenv
+import os
 
-ASSISTANT_ID = "asst_iOpzcahzHmqay2iM6jad246W" # ASSISTANT_ID needs to be submitted here
+# Load environment variables from .env file
+load_dotenv()
+
+ASSISTANT_ID = os.getenv('OPENAPI_ASSISTANT_ID')
 client = OpenAI(
-    api_key = "sk-proj-oxpnb3tt8tyv1UePIiw0T3BlbkFJVlcvRjrKh6JcGyxK1Edx" # "api_key need to be submitted here"
+    api_key=os.getenv('OPENAPI_API_KEY')
 )
 
-def get_chatgpt_response_with_file(file):
+def get_chatgpt_file_response(file):
     
     # Create a vector store called "Supporting Data Files"
     vector_store = client.beta.vector_stores.create(name="Supporting Data Files")
@@ -63,7 +68,7 @@ def get_chatgpt_response_with_file(file):
     return latest_message
 
 
-def get_chatgpt_response(prompt):
+def get_chatgpt_custom_response(prompt):
 
     # Create a thread with a message.
     thread = client.beta.threads.create(
@@ -96,13 +101,13 @@ def get_chatgpt_response(prompt):
 
 
 
-# file = "./PDFfiles/Ranjan.pdf"
-# prompt = "Who is Ram Pratap Ranjan"
-# response = get_chatgpt_response(prompt)
+# file = "./pdf_files/Ranjan.pdf"
+# prompt = "Who is Ranjan"
+# response = get_chatgpt_custom_response(prompt)
 # print(response)
 # print('----------------------------------')
-# response = get_chatgpt_response_with_file(file)
+# response = get_chatgpt_response_from_file(file)
 # print(response)
 # print('----------------------------------')
-# response = get_chatgpt_response(prompt)
+# response = get_chatgpt_custom_response(prompt)
 # print(response)

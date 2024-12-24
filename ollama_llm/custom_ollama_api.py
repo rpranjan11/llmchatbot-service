@@ -49,7 +49,7 @@ def get_ollama_response_from_file(model, file, prompt):
         summary = chain.invoke(input={"input_documents": search, "question": prompt})
         return summary['output_text']
     else:
-        chain = load_qa_chain(retriever, llm, prompt)
+        chain = load_qa_chain(retriever, llm)
         search = vectorstore.similarity_search(" ")
         response = chain.invoke(input={"input_documents": search, "query": prompt})
         return response['result']

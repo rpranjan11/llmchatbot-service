@@ -10,8 +10,8 @@ from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 from openapi.custom_chatgpt_api import get_chatgpt_response_from_file, get_chatgpt_custom_response
 from openapi.generic_chatgpt_api import get_chatgpt_generic_response
-from ollama.generic_ollama_api import get_ollama_generic_response
-from ollama.custom_ollama_api import get_ollama_response_from_file
+from ollama_llm.custom_ollama_api import get_ollama_response_from_file
+from ollama_llm.generic_ollama_api import get_ollama_generic_response
 
 # Load environment variables from .env file
 load_dotenv()
@@ -30,7 +30,7 @@ async def save_and_summarize_pdf(request: Request):
         return JSONResponse({"error": "No PDF file provided"}, status_code=400)
     
     # Save the PDF file to disk
-    file_name = pdf_file.file_name
+    file_name = pdf_file.filename
     save_path = os.path.join("pdf_files", file_name)
     
     with open(save_path, "wb") as f:

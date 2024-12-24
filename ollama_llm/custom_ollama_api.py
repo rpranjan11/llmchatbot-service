@@ -17,13 +17,10 @@ just say you don't know. Don't try to make up an answer.
 ### Response:
 """
 
-file = None  # Initialize file as None
 chain = None  # Initialize chain as None
 vectorstore = None  # Initialize vectorstore as None
-prompt = None  # Initialize prompt as None
-model = None  # Initialize model as None
 
-def get_ollama_response_from_file(model, file, prompt):
+def get_ollama_file_response(model, file, prompt):
     global chain, vectorstore  # Declare chain and vectorstore as global to modify the global variables
 
     # Loading the Ollama Model
@@ -43,10 +40,9 @@ def get_ollama_response_from_file(model, file, prompt):
     retriever = vectorstore.as_retriever()
 
     if prompt is None:
-        prompt = "Write a summary within 1000 words"
         chain = load_summarize_chain(llm, chain_type="stuff")  # specific for summary generation
         search = vectorstore.similarity_search(" ")
-        summary = chain.invoke(input={"input_documents": search, "question": prompt})
+        summary = chain.invoke(input={"input_documents": search, "question": "Write a summary within 1000 words"})
         return summary['output_text']
     else:
         chain = load_qa_chain(retriever, llm)

@@ -11,7 +11,7 @@ client = OpenAI(
     api_key=os.getenv('OPENAPI_API_KEY')
 )
 
-def get_chatgpt_response_from_file(file):
+def get_chatgpt_file_response(file):
     
     # Create a vector store called "Supporting Data Files"
     vector_store = client.beta.vector_stores.create(name="Supporting Data Files")

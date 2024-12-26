@@ -1,5 +1,5 @@
 from custom_ollama_function import load_pdf_data, split_docs, create_embeddings, load_embedding_model, load_qa_chain
-from langchain_community.llms.ollama import Ollama
+from langchain_ollama import OllamaLLM
 from langchain.chains.summarize import load_summarize_chain
 
 prompt_template = """
@@ -24,7 +24,7 @@ def get_ollama_file_response(model, file, prompt):
     global chain, vectorstore  # Declare chain and vectorstore as global to modify the global variables
 
     # Loading the Ollama Model
-    llm = Ollama(model=model, temperature=0)
+    llm = OllamaLLM(model=model, temperature=0)
 
     # Loading the Embedding Model
     embed = load_embedding_model(model_path="all-MiniLM-L6-v2")

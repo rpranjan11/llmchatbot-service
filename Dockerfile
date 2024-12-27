@@ -1,49 +1,41 @@
-FROM ubuntu:22.04
+# Stage 1: Base image for installing dependencies and Ollama
+FROM ubuntu:22.04 AS base
 
 # Install necessary tools
-RUN apt-get update && apt-get install -y curl wget tar
-
-# Install Docker (required for Ollama)
-RUN apt-get install -y docker.io
+RUN apt-get update && apt-get install -y curl wget tar python3 python3-venv python3-pip docker.io
 
 # Install Ollama
 RUN curl -fsSL https://ollama.com/download | bash
 
-# Pull the Llama3.2 model
-RUN ollama pull llama3.2
+# Pull the required models
+RUN ollama pull llama3.2 \
+    && ollama pull orca-mini
 
-# Start the Ollama server
-#RUN ollama serve
-
-# Use an official Python runtime as a parent image
-FROM python:3.11-slim
+# Stage 2: Python application setup
+FROM python:3.11-slim AS app
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
+# Copy the application code into the container
 COPY . /app
 
-# Install the ollama package and other dependencies
+# Install Python dependencies
 RUN python -m venv venv \
-    && /bin/bash -c "source venv/bin/activate \
-    && pip install ollama \
-    && pip install --no-cache-dir -r requirements.txt"
+    && /bin/bash -c "source venv/bin/activate && pip install --no-cache-dir -r requirements.txt"
 
-# Pull the orca-mini and llama3.2 models
-RUN /bin/bash -c "source venv/bin/activate \
-    && ollama pull orca-mini \
-    && ollama pull llama3.2"
+# Install the Ollama Python package
+RUN /bin/bash -c "source venv/bin/activate && pip install ollama"
 
-# Download the orca-mini and llama3.2 models using the updated class
+# Preload the models using the `OllamaLLM` class
 RUN /bin/bash -c "source venv/bin/activate \
     && python -c 'from langchain_ollama import OllamaLLM; OllamaLLM(model=\"orca-mini\", temperature=0); OllamaLLM(model=\"llama3.2\", temperature=0)'"
 
-# Make port 8000 available to the world outside this container
+# Make port 8000 available to the outside world
 EXPOSE 8000
 
 # Define environment variable
 ENV NAME LLMChatbot
 
-# Run app.py when the container launches
+# Define the entry point for the application
 CMD ["venv/bin/python", "app.py"]

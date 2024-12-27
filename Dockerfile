@@ -7,14 +7,11 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Update pip
-RUN pip install --upgrade pip
-
 # Install the ollama package and other dependencies
 RUN python -m venv venv \
-    && . venv/bin/activate \
+    && /bin/bash -c "source venv/bin/activate \
     && pip install ollama \
-    && pip install --no-cache-dir -r requirements.txt
+    && pip install --no-cache-dir -r requirements.txt"
 
 # Pull the orca-mini and llama3.2 models
 RUN /bin/bash -c "source venv/bin/activate \

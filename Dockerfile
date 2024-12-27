@@ -10,9 +10,6 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install the updated langchain-ollama package
-RUN pip install -U langchain-ollama
-
 # Download the orca-mini and llama3.2 models using the updated class
 RUN python -c "from langchain_ollama import OllamaLLM; OllamaLLM(model='orca-mini', temperature=0); OllamaLLM(model='llama3.2', temperature=0)"
 
@@ -20,7 +17,7 @@ RUN python -c "from langchain_ollama import OllamaLLM; OllamaLLM(model='orca-min
 EXPOSE 8000
 
 # Define environment variable
-ENV NAME World
+ENV NAME LLMChatbot
 
 # Run app.py when the container launches
 CMD ["python", "app.py"]

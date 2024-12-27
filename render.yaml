@@ -5,7 +5,9 @@ services:
     plan: free
     buildCommand: |
       pip install -r requirements.txt
-      python -c "from langchain_community.llms.ollama import Ollama; Ollama(model='orca-mini', temperature=0); Ollama(model='llama3.2', temperature=0)"
+      ollama pull orca-mini
+      ollama pull llama3.2
+      python -c "from langchain_ollama import OllamaLLM; OllamaLLM(model='orca-mini', temperature=0); OllamaLLM(model='llama3.2', temperature=0)"
     startCommand: "python app.py"
     envVars:
       - key: OPENAPI_API_KEY

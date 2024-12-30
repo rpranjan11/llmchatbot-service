@@ -1,20 +1,3 @@
-FROM ubuntu:22.04
-
-# Install necessary tools
-RUN apt-get update && apt-get install -y curl wget tar
-
-# Install Docker (required for Ollama)
-RUN apt-get install -y docker.io
-
-# Install Ollama
-RUN curl -fsSL https://ollama.com/download | bash
-
-# Pull the Llama3.2 model
-RUN ollama pull llama3.2
-
-# Start the Ollama server
-#RUN ollama serve
-
 # Use an official Python runtime as a parent image
 FROM python:3.11-slim
 

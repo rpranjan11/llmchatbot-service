@@ -1,29 +1,23 @@
-# Description: Dockerfile for the LLMChatbot
-
-# Use the official Python image
+# Use an official Python runtime as a parent image
 FROM python:3.11-slim
 
 # Set the working directory in the container
 WORKDIR /app
+
+# Copy the current directory contents into the container at /app
 COPY . /app
 
-# Install the dependencies in the container
-RUN python -m venv venv \
-    && . venv/bin/activate \
-    && pip install ollama \
-    && ollama \
-    && ollama pull orca-mini \
-    && ollama pull llama3.2
-
-# Install the dependencies in the container
+# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Run the LLM models
+# Download the orca-mini and llama3.2 models using the updated class
 RUN python -c "from langchain_ollama import OllamaLLM; OllamaLLM(model='orca-mini', temperature=0); OllamaLLM(model='llama3.2', temperature=0)"
 
-# Inform Docker that the container listens on the specified network ports at runtime
+# Make port 80 available to the world outside this container
 EXPOSE 8000
+
+# Define environment variable
 ENV NAME LLMChatbot
 
-# Run the application
-CMD ["venv/bin/python", "app.py"]
+# Run app.py when the container launches
+CMD ["python", "app.py"]

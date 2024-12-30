@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Install the Ollama package
-RUN curl -fsSL https://ollama.com/install.sh | sh
+RUN pip install ollama
 
 # Pull the orca-mini
 RUN ollama pull orca-mini

@@ -32,8 +32,8 @@ RUN venv/bin/python -c \
     OllamaLLM(model='orca-mini', temperature=0); \
     OllamaLLM(model='llama3.2', temperature=0)" || echo "Model preloading failed, continuing..."
 
-# Expose port 8000 for the application
-EXPOSE 8000
+# Expose port 8930 for the application
+EXPOSE 8930
 
 # Set an additional environment variable
 ENV NAME LLMChatbot

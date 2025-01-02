@@ -105,6 +105,6 @@ middleware = [
 # Add the routes & middleware to the Starlette app
 app = Starlette(routes=routes, middleware=middleware)
 
-# Run the Starlette app with Uvicorn server on port 8000
+# Run the Starlette app with Uvicorn server on port 8930
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8930)

@@ -1,0 +1,12 @@
+version: '1.0.0'
+
+services:
+  workspacegit:
+    image: rpranjan11/llmchatbot-service:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        OPENAPI_API_KEY:
+        OPENAPI_ASSISTANT_ID:
+        MIDDLEWARE_ALLOW_ORIGIN_URL: https://www.theranjana.com

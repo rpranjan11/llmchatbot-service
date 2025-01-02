@@ -1,0 +1,8 @@
+version: '1.0.0'
+
+services:
+  workspacegit:
+    image: llmchatbot-service
+    build:
+      context: .
+      dockerfile: Dockerfile

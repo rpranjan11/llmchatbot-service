@@ -35,18 +35,19 @@ RUN venv/bin/python -c \
 # Install Nginx
 RUN apt-get update && apt-get install -y nginx
 
+# Create nginx user
+RUN adduser --system --no-create-home --disabled-login --disabled-password --group nginx
+
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY llmchatbot-service.conf /etc/nginx/conf.d/llmchatbot-service.conf
 
 # Copy SSL certificates
-COPY fullchain.pem /etc/ssl/certs/fullchain.pem
-COPY privkey.pem /etc/ssl/private/privkey.pem
+COPY server.crt /etc/nginx/ssl/server.crt
+COPY server.key /etc/nginx/ssl/server.key
 
 # Expose ports for HTTP and HTTPS
-EXPOSE 80 443
-
-# Set an additional environment variable
-ENV NAME LLMChatbot
+EXPOSE 80 8930
 
 # Start Nginx and the application
-CMD ["sh", "-c", "service nginx start && venv/bin/python app.py"]
+CMD ["sh", "-c", "nginx -g 'daemon off;' & venv/bin/python app.py"]

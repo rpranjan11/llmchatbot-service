@@ -12,8 +12,9 @@ services:
         MIDDLEWARE_ALLOW_ORIGIN_URL: https://www.theranjana.com
     ports:
       - "80:80"
-      - "443:443"
+      - "8930:8930"
     volumes:
-      - ./fullchain.pem:/etc/ssl/certs/fullchain.pem
-      - ./privkey.pem:/etc/ssl/private/privkey.pem
+      - ./server.crt:/etc/nginx/ssl/server.crt
+      - ./server.key:/etc/nginx/ssl/server.key
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./llmchatbot-service.conf:/etc/nginx/conf.d/llmchatbot-service.conf

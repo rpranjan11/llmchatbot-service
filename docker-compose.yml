@@ -10,3 +10,10 @@ services:
         OPENAPI_API_KEY:
         OPENAPI_ASSISTANT_ID:
         MIDDLEWARE_ALLOW_ORIGIN_URL: https://www.theranjana.com
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./fullchain.pem:/etc/ssl/certs/fullchain.pem
+      - ./privkey.pem:/etc/ssl/private/privkey.pem
+      - ./nginx.conf:/etc/nginx/nginx.conf

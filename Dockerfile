@@ -32,11 +32,21 @@ RUN venv/bin/python -c \
     OllamaLLM(model='orca-mini', temperature=0); \
     OllamaLLM(model='llama3.2', temperature=0)" || echo "Model preloading failed, continuing..."
 
-# Expose port 8930 for the application
-EXPOSE 8930
+# Install Nginx
+RUN apt-get update && apt-get install -y nginx
+
+# Copy Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy SSL certificates
+COPY fullchain.pem /etc/ssl/certs/fullchain.pem
+COPY privkey.pem /etc/ssl/private/privkey.pem
+
+# Expose ports for HTTP and HTTPS
+EXPOSE 80 443
 
 # Set an additional environment variable
 ENV NAME LLMChatbot
 
-# Define the entry point for the application
-CMD ["venv/bin/python", "app.py"]
+# Start Nginx and the application
+CMD ["sh", "-c", "service nginx start && venv/bin/python app.py"]

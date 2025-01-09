@@ -42,10 +42,6 @@ RUN adduser --system --no-create-home --disabled-login --disabled-password --gro
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY llmchatbot-service.conf /etc/nginx/conf.d/llmchatbot-service.conf
 
-# Copy SSL certificates
-COPY server.crt /etc/nginx/ssl/server.crt
-COPY server.key /etc/nginx/ssl/server.key
-
 # Expose ports for HTTP and HTTPS
 EXPOSE 80 8930
 

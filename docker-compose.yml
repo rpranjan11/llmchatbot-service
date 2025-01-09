@@ -1,8 +1,8 @@
-version: '1.0.0'
+version: '1.0'
 
 services:
   workspacegit:
-    image: rpranjan11/llmchatbot-service:v1
+    image: llmchatbot_service:v1.0
     build:
       context: .
       dockerfile: Dockerfile

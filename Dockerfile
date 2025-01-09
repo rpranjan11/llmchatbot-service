@@ -26,24 +26,8 @@ COPY . /app
 RUN python -m venv venv && \
     venv/bin/pip install --no-cache-dir -r requirements.txt
 
-# Preload the models using the `OllamaLLM` class
-RUN venv/bin/python -c \
-    "from langchain_ollama import OllamaLLM; \
-    OllamaLLM(model='orca-mini', temperature=0); \
-    OllamaLLM(model='llama3.2', temperature=0)" || echo "Model preloading failed, continuing..."
-
-# Install Nginx
-RUN apt-get update && apt-get install -y nginx
-
-# Create nginx user
-RUN adduser --system --no-create-home --disabled-login --disabled-password --group nginx
-
-# Copy Nginx configuration file
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY llmchatbot-service.conf /etc/nginx/conf.d/llmchatbot-service.conf
-
 # Expose ports for HTTP and HTTPS
-EXPOSE 80 8930
+EXPOSE 80 443
 
 # Start Nginx and the application
 CMD ["sh", "-c", "nginx -g 'daemon off;' & venv/bin/python app.py"]

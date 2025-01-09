@@ -1,20 +1,18 @@
 version: '1.0'
 
 services:
-  workspacegit:
+  app:
     image: llmchatbot_service:v1.0
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        OPENAPI_API_KEY:
-        OPENAPI_ASSISTANT_ID:
-        MIDDLEWARE_ALLOW_ORIGIN_URL: https://www.theranjana.com
     ports:
       - "80:80"
-      - "8930:8930"
+      - "443:443"
+    environment:
+      - OPENAPI_API_KEY=
+      - OPENAPI_ASSISTANT_ID=
+      - MIDDLEWARE_ALLOW_ORIGIN_URL=https://www.theranjana.com
     volumes:
-      - ./server.crt:/etc/nginx/ssl/server.crt
-      - ./server.key:/etc/nginx/ssl/server.key
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./llmchatbot-service.conf:/etc/nginx/conf.d/llmchatbot-service.conf
+      - ./data:/app/data
+    restart: always

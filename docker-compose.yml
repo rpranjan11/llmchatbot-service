@@ -3,6 +3,7 @@ version: '1.0'
 services:
   app:
     image: llmchatbot_service:v1.0
+    container_name: llmchatbot_service_v1.0
     build:
       context: .
       dockerfile: Dockerfile

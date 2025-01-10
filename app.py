@@ -12,8 +12,7 @@ from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 from openapi.custom_chatgpt_api import get_chatgpt_file_response, get_chatgpt_custom_response
 from openapi.generic_chatgpt_api import get_chatgpt_generic_response
-from ollama_llm.custom_ollama_api import get_ollama_file_response
-from ollama_llm.generic_ollama_api import get_ollama_generic_response
+from ollama_llm.ollama_http_api_call import get_ollama_file_response, get_ollama_generic_response
 
 # Load environment variables from .env file
 load_dotenv()

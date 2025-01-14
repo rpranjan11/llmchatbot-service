@@ -19,3 +19,4 @@ MIDDLEWARE_ALLOW_ORIGIN_URL=
 
 ## To run the app
 python app.py
+nohup python app.py > stdout.log 2>&1 & //From aws ec2 instance

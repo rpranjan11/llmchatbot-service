@@ -18,36 +18,6 @@ from ollama_llm.ollama_http_api_call import get_ollama_file_response, get_ollama
 # Load environment variables from .env file
 load_dotenv()
 
-file_path = './pdf_files/' # Initialize file_path as './pdf_files/'
-file_name = None  # Initialize file_name as None
-
-# async def save_and_summarize_pdf(request: Request):
-#     print("Request received for save_and_summarize_pdf : ", await request.form())
-#
-#     global file_name # Declare file_name as global to modify the global variable
-#
-#     # Retrieve the request data
-#     form_data = await request.form()
-#     pdf_file = form_data.get("pdf")
-#     # chatgpt_model = form_data.get("chatgpt_model") # Not required for now
-#     ollama_model = form_data.get("ollama_model")
-#
-#     if pdf_file is None:
-#         return JSONResponse({"error": "No PDF file provided"}, status_code=400)
-#
-#     # Save the PDF file to disk
-#     file_name = pdf_file.filename
-#     save_path = os.path.join("pdf_files", file_name)
-#
-#     with open(save_path, "wb") as f:
-#         f.write(await pdf_file.read())
-#
-#
-#     chatgpt_response = get_chatgpt_file_response(file_path + file_name)
-#     ollama_response = get_ollama_file_response(ollama_model, file_path + file_name, None)
-#
-#     return JSONResponse({"message": "PDF file uploaded successfully", "chatgptResponse": chatgpt_response, "ollamaResponse": ollama_response}, status_code=200)
-
 async def save_and_summarize_pdf(request: Request):
     print("Request received for save_and_summarize_pdf : ", await request.form())
 
@@ -114,7 +84,7 @@ def ollama_custom_response(request):
     prompt = request.path_params['prompt']
     model = request.path_params['model']
 
-    ollama_response = get_ollama_file_response(model, file_path + file_name, prompt)
+    ollama_response = get_ollama_file_response(model, prompt)
 
     return JSONResponse({"ollamaResponse": ollama_response}, status_code=200)
 

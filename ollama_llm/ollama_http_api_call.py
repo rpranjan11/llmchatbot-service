@@ -9,7 +9,7 @@ def get_ollama_generic_response(model, prompt):
         response = httpx.get(f'http://61.32.218.74:8930/ollamagenericresponse/{model}/{prompt}',  timeout=60.0)
         response.raise_for_status()  # Raise an exception for HTTP errors
         logging.debug(f"Response: {response.json()}")
-        return response.json()
+        return response.json()['ollamaresponse']
 
     except httpx.TimeoutException as exc:
         logging.error(f"Request timed out after 60 seconds: {exc}")
@@ -28,7 +28,7 @@ def get_ollama_file_response(model, prompt):
         response = httpx.get(f'http://61.32.218.74:8930/ollamacustomresponse/{model}/{prompt}', timeout=60.0)
         response.raise_for_status()  # Raise an exception for HTTP errors
         logging.debug(f"Response: {response.json()}")
-        return response.json()
+        return response.json()['ollamaresponse']
 
     except httpx.TimeoutException as exc:
         logging.error(f"Request timed out after 60 seconds: {exc}")

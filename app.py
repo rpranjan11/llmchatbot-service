@@ -55,7 +55,23 @@ async def save_and_summarize_pdf(request: Request):
     async with httpx.AsyncClient(timeout=httpx.Timeout(60.0)) as client:
         try:
             form_data = await request.form()
-            files = {"pdf": await form_data["pdf"].read()}
+            pdf_file = form_data["pdf"]
+
+            # Ensure the file has a .pdf extension
+            if not pdf_file.filename.lower().endswith('.pdf'):
+                return JSONResponse(
+                    {"error": "Only PDF files are supported"},
+                    status_code=400
+                )
+
+            # Prepare the file with explicit filename
+            files = {
+                "pdf": (
+                    pdf_file.filename,
+                    await pdf_file.read(),
+                    "application/pdf"
+                )
+            }
             data = {"ollama_model": form_data.get("ollama_model")}
 
             response = await client.post(

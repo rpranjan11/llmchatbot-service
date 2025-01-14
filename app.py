@@ -52,18 +52,25 @@ async def save_and_summarize_pdf(request: Request):
     print("Request received for save_and_summarize_pdf : ", await request.form())
 
     # Forward the request to the target server
-    async with httpx.AsyncClient() as client:
-        form_data = await request.form()
-        files = {"pdf": await form_data["pdf"].read()}
-        data = {"ollama_model": form_data.get("ollama_model")}
+    async with httpx.AsyncClient(timeout=httpx.Timeout(60.0)) as client:
+        try:
+            form_data = await request.form()
+            files = {"pdf": await form_data["pdf"].read()}
+            data = {"ollama_model": form_data.get("ollama_model")}
 
-        response = await client.post(
-            "http://61.32.218.74:8930/uploadpdf",
-            files=files,
-            data=data
-        )
+            response = await client.post(
+                "http://61.32.218.74:8930/uploadpdf",
+                files=files,
+                data=data
+            )
 
-        return JSONResponse(response.json(), status_code=response.status_code)
+            return JSONResponse(response.json(), status_code=response.status_code)
+
+        except httpx.ReadTimeout:
+            return JSONResponse(
+                {"error": "Request timed out after 60 seconds"},
+                status_code=504
+            )
 
 def chatgpt_custom_response(request):
     print("Request received for chatgpt_custom_response : ", request.path_params)

@@ -22,7 +22,7 @@ async def save_and_summarize_pdf(request: Request):
     print("Request received for save_and_summarize_pdf : ", await request.form())
 
     # Forward the request to the target server
-    async with httpx.AsyncClient(timeout=httpx.Timeout(60.0)) as client:
+    async with httpx.AsyncClient(timeout=httpx.Timeout(180.0)) as client:
         try:
             form_data = await request.form()
             pdf_file = form_data["pdf"]

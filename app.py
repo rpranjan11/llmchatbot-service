@@ -2,6 +2,7 @@ import uvicorn
 from dotenv import load_dotenv
 import os
 import sys
+import httpx
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'ollama_llm')))
 
 from starlette.applications import Starlette
@@ -20,32 +21,49 @@ load_dotenv()
 file_path = './pdf_files/' # Initialize file_path as './pdf_files/'
 file_name = None  # Initialize file_name as None
 
+# async def save_and_summarize_pdf(request: Request):
+#     print("Request received for save_and_summarize_pdf : ", await request.form())
+#
+#     global file_name # Declare file_name as global to modify the global variable
+#
+#     # Retrieve the request data
+#     form_data = await request.form()
+#     pdf_file = form_data.get("pdf")
+#     # chatgpt_model = form_data.get("chatgpt_model") # Not required for now
+#     ollama_model = form_data.get("ollama_model")
+#
+#     if pdf_file is None:
+#         return JSONResponse({"error": "No PDF file provided"}, status_code=400)
+#
+#     # Save the PDF file to disk
+#     file_name = pdf_file.filename
+#     save_path = os.path.join("pdf_files", file_name)
+#
+#     with open(save_path, "wb") as f:
+#         f.write(await pdf_file.read())
+#
+#
+#     chatgpt_response = get_chatgpt_file_response(file_path + file_name)
+#     ollama_response = get_ollama_file_response(ollama_model, file_path + file_name, None)
+#
+#     return JSONResponse({"message": "PDF file uploaded successfully", "chatgptResponse": chatgpt_response, "ollamaResponse": ollama_response}, status_code=200)
+
 async def save_and_summarize_pdf(request: Request):
     print("Request received for save_and_summarize_pdf : ", await request.form())
 
-    global file_name # Declare file_name as global to modify the global variable
+    # Forward the request to the target server
+    async with httpx.AsyncClient() as client:
+        form_data = await request.form()
+        files = {"pdf": await form_data["pdf"].read()}
+        data = {"ollama_model": form_data.get("ollama_model")}
 
-    # Retrieve the request data
-    form_data = await request.form()
-    pdf_file = form_data.get("pdf")
-    # chatgpt_model = form_data.get("chatgpt_model") # Not required for now
-    ollama_model = form_data.get("ollama_model")
+        response = await client.post(
+            "http://61.32.218.74:8930/uploadpdf",
+            files=files,
+            data=data
+        )
 
-    if pdf_file is None:
-        return JSONResponse({"error": "No PDF file provided"}, status_code=400)
-    
-    # Save the PDF file to disk
-    file_name = pdf_file.filename
-    save_path = os.path.join("pdf_files", file_name)
-    
-    with open(save_path, "wb") as f:
-        f.write(await pdf_file.read())
-
-    
-    chatgpt_response = get_chatgpt_file_response(file_path + file_name)
-    ollama_response = get_ollama_file_response(ollama_model, file_path + file_name, None)
-
-    return JSONResponse({"message": "PDF file uploaded successfully", "chatgptResponse": chatgpt_response, "ollamaResponse": ollama_response}, status_code=200)
+        return JSONResponse(response.json(), status_code=response.status_code)
 
 def chatgpt_custom_response(request):
     print("Request received for chatgpt_custom_response : ", request.path_params)

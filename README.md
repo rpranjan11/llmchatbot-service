@@ -20,3 +20,9 @@ MIDDLEWARE_ALLOW_ORIGIN_URL=
 ## To run the app
 python app.py
 nohup python app.py > stdout.log 2>&1 & //From aws ec2 instance
+
+
+## To run the app on Timbel server i.e. 192.168.1.214
+sudo lsof -i :8930
+kill -9 <pid_the _one_with_root>
+nohup venv/bin/python app.py > stdout.log 2>&1 &
